@@ -1,11 +1,16 @@
-"use client";
-
-import { useRouter } from "next/router";
+'use client';
+import { getServerSession } from "next-auth";
+import { getSession, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 
 export default function ListingsPage() {
 
     const router = useRouter();
+    const session = getSession()
+    if (!session) {
+        router.push("/login");
+    }
 
     const [text, setText] = useState("");
     const [listing, setListing] = useState("");
@@ -26,6 +31,7 @@ export default function ListingsPage() {
             console.log(e);
         }
     }
+
 
     return (
         <div>
