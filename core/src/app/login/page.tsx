@@ -1,11 +1,22 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import LogIn from "./LogIn";
+import { AuthenticationForm } from "./Login";
 
 export default async function Navbar() {
     const session = await getServerSession();
-    return (
-        <LogIn session={session} />
-    );
+    if (session) {
+        return (
+            <div>
+                Logged In
+            </div>
+        );
+    } else {
+        return (
+            //<LogIn session={session} />
+            <div>
+                <AuthenticationForm />
+            </div>
+        );
+    }
 }
