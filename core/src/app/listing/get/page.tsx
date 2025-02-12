@@ -1,15 +1,20 @@
 'use client';
-import { getServerSession } from "next-auth";
-import { getSession, useSession } from "next-auth/react";
+
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 
 export default function ListingsPage() {
-
     const router = useRouter();
-    const session = getSession()
+    const { data: session, status } = useSession();
+
+    if (status === "loading") {
+        return <div>Loading...</div>;
+    }
+
     if (!session) {
         router.push("/login");
+        return null;
     }
 
     const [text, setText] = useState("");
@@ -31,7 +36,6 @@ export default function ListingsPage() {
             console.log(e);
         }
     }
-
 
     return (
         <div>
