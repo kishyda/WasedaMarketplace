@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import LogIn from "./LogIn";
+import { AuthenticationForm } from "./Login";
 
 export default async function Navbar() {
     const session = await getServerSession();
